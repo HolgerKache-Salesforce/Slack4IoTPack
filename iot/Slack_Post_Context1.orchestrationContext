@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OrchestrationContext xmlns="http://soap.sforce.com/2006/04/metadata">
+    <events>
+        <platformEvent>Slack_post_event__e</platformEvent>
+        <platformEventPrimaryKey>Slack_post_ID__c</platformEventPrimaryKey>
+    </events>
+    <masterLabel>Slack Post Context</masterLabel>
+    <primaryKeyDataType>Number</primaryKeyDataType>
+    <salesforceObject>Slack_Message__c</salesforceObject>
+    <salesforceObjectPrimaryKey>Id</salesforceObjectPrimaryKey>
+</OrchestrationContext>
