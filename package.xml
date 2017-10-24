@@ -27,17 +27,16 @@
         <name>Layout</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Slack_post_event__e</members>
         <name>CustomObject</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Slack_post.orchestration</members>
         <name>Orchestration</name>
     </types>
     <types>
-        <members>*</members>
+        <members>Slack_Post_Context1.orchestrationContext</members>
         <name>OrchestrationContext</name>
     </types>
-    <version>41.0</version>
     <version>41.0</version>
 </Package>
