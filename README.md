@@ -82,7 +82,14 @@ Besides the "Slack PE Settings" there is one custom object called “Slack Messa
 
 ![image alt text](image_8.png)
 
-To test the Slack integration without any actual IoT context, we also provide a simple platform event "Slack_post_event__e" and make that available through a context. A simple orchestration process events of type “Slack_post_event__e”. Note: this platform event is not required to emit Slack messages from IoT orchestrations based on actual contexts.
+To test the Slack integration we would need real IoT input events to be available. Without a connection to some device management system, however, we will have to simulate input.
+
+For demo purposes only, we demonstrate the input through a platform event called “Slack_post_event__e”. That platform event has a couple of fields, one for a text(255) value and one used as key (a numeric id). 
+
+The platform event can simply be created using workbench or any other external REST client (like Postman). Below is the schema for the platform event.
+
+In a real-world situation we would expect complex orchestrations based on real IoT input events.
+
 
 ![image alt text](image_9.png) 
 
@@ -110,7 +117,7 @@ The resulting Slack message will look like:
 
 # Short Video
 
-To be completed
+Available here: [./demo_recording_480p.mov](./demo_recording_480p.mov)
 
 # Submission
 
