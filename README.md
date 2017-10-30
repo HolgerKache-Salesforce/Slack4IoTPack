@@ -40,17 +40,17 @@ Before you can emit your first message, you have to do 2 things as admin:
 
 To execute these steps you have to have admin privileges on the channel. If you don’t have those for a given channel, you can either request or simply create a new channel. The owner of a channel will have admin privileges.
 
-To get started, either use the find the "Add an app" menu item ...![image alt text](image_0.png)
+To get started, either use the find the "Add an app" menu item ...![image alt text](img/image_0.png)
 
 … or navigate directly to [https://api.slack.com/apps](https://api.slack.com/apps)
 
-![image alt text](image_1.png)
+![image alt text](img/image_1.png)
 
-* Create an app with a name (e.g. "IoT Explorer") and select the right workspace![image alt text](image_2.png)
+* Create an app with a name (e.g. "IoT Explorer") and select the right workspace![image alt text](img/image_2.png)
 
-* Click "Activate Incoming Webhooks" first and then “Add New Webhook to Workspace”![image alt text](image_3.png)
+* Click "Activate Incoming Webhooks" first and then “Add New Webhook to Workspace”![image alt text](img/image_3.png)
 
-* Authorize the new webhook with existing channel![image alt text](image_4.png)
+* Authorize the new webhook with existing channel![image alt text](img/image_4.png)
 
 * Copy the webhook URL (you will need that in the next step with Salesforce configuration)
 
@@ -62,25 +62,25 @@ From Setup → Security→ Remote Site Settings
 
 * Add the copied webhook URL (with or without the actual path) as new remote site
 
-![image alt text](image_5.png)
+![image alt text](img/image_5.png)
 
 Finally you are going to create an instance of a custom object "Slack_PE_Settings__c" to populate the Slack webhook URL into.
 
 Open workbench at [https://workbench.developerforce.com/insert.php](https://workbench.developerforce.com/insert.php)
 
-* With data → Insert you can select the "Slack_PE_Settings__c" object![image alt text](image_6.png)
+* With data → Insert you can select the "Slack_PE_Settings__c" object![image alt text](img/image_6.png)
 
 * Use any "Name" to identify the configuration with
 
 * For OwnerId use the Smart Lookup field "Owner.Username"
 
-* The webhook__c is the complete webhook URL (including path) copied from Slack above![image alt text](image_7.png)
+* The webhook__c is the complete webhook URL (including path) copied from Slack above![image alt text](img/image_7.png)
 
 ## Metadata Config
 
 Besides the "Slack PE Settings" there is one custom object called “Slack Message”. That object has a single field “Text” of type String(255) for the actual Slack message.
 
-![image alt text](image_8.png)
+![image alt text](img/image_8.png)
 
 To test the Slack integration we would need real IoT input events to be available. Without a connection to some device management system, however, we will have to simulate input.
 
@@ -91,29 +91,29 @@ The platform event can simply be created using workbench or any other external R
 In a real-world situation we would expect complex orchestrations based on real IoT input events.
 
 
-![image alt text](image_9.png) 
+![image alt text](img/image_9.png) 
 
 ## IoT Explorer Config
 
 IoT orchestrations to emit Slack messages can be trivial or complex. The Slack output only concerns the output action. To create a new Slack output action, select "Salesforce Record" for output.
 
-![image alt text](image_10.png)
+![image alt text](img/image_10.png)
 
-Create a new object of type "Slack Message"![image alt text](image_11.png)
+Create a new object of type "Slack Message"![image alt text](img/image_11.png)
 
 The only required field to the object is "Text__c". Here you can construct the message format using any values, including the Slack markdown formatting options (like ` for single-line code`, ```for multi-line code```, _for cursive text_, and *for bold text*).
 
 The provided sample orchestration uses the Slack_post_event__e body to construct a Slack_Message__c instance and wrap the value with a few additional fields into "Text__c". 
 
-![image alt text](image_12.png)
+![image alt text](img/image_12.png)
 
 The resulting Slack message will look like:
 
-![image alt text](image_13.png)
+![image alt text](img/image_13.png)
 
 # Solution Diagram
 
-![image alt text](image_14.png) 
+![image alt text](img/image_14.png) 
 
 # Short Video
 
