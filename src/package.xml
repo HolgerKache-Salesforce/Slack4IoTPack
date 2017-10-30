@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Slack4IoT</fullName>
     <types>
         <members>SlackPublisher</members>
         <name>ApexClass</name>
     </types>
     <types>
-        <members>SlackMessageTrigger</members>
+        <members>SlackEventTrigger</members>
         <name>ApexTrigger</name>
     </types>
     <types>
         <members>IoT_Debug_Log__c.Message__c</members>
         <members>Slack_Message__c.Text__c</members>
         <members>Slack_PE_Settings__c.webhook__c</members>
+        <members>Slack_post_event__e.Message__c</members>
+        <members>Slack_post_event__e.Slack_post_ID__c</members>
         <name>CustomField</name>
     </types>
     <types>
         <members>IoT_Debug_Log__c</members>
         <members>Slack_Message__c</members>
         <members>Slack_PE_Settings__c</members>
+        <members>Slack_post_event__e</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -25,18 +29,6 @@
         <members>Slack_Message__c-Slack Message Layout</members>
         <members>Slack_PE_Settings__c-Slack PE Settings Layout</members>
         <name>Layout</name>
-    </types>
-    <types>
-        <members>Slack_post_event__e</members>
-        <name>CustomObject</name>
-    </types>
-    <types>
-        <members>Slack_post.orchestration</members>
-        <name>Orchestration</name>
-    </types>
-    <types>
-        <members>Slack_Post_Context1.orchestrationContext</members>
-        <name>OrchestrationContext</name>
     </types>
     <version>41.0</version>
 </Package>

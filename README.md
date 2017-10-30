@@ -1,14 +1,14 @@
 # Slack 4 IoT Package
 
-The package offers an integration for IoT Explorer with Slack. With the package you can send messages to any Slack channel directly from IoT Explorer output actions. You can freely construct the message text and format it with the familiar Slack markdown options.
+The package offers an integration for Salesforce Platform Events with Slack. With the package you can send messages to any Slack channel directly from a custom platform event. You can freely construct the platform event message and format it with the familiar Slack markdown options.
 
-With the Slack integration for IoT Explorer you can send alerts to your Slack channel, create debug output, or even consume your IoT messages with downstream applications. 
+With the Slack integration you can integrate your IoT orchestrations with Slack. In the orchestration output action, you can emit a platform event to send alerts to your Slack channel, create debug output, or even consume your IoT events with downstream applications. 
 
-Intended Audience
+# Intended Audience
 
-The package is intended for any IoT Explorer developer. It requires access to a Slack account with admin privileges to set up an application integration.
+The package is intended for any Salesforce platform developer but with a special focus on Salesforce IoT. While platform events can be emitted from many Salesforce components, Salesforce IoT supports them for both, input and output. 
 
-Once configured, the integration will be useful to all users in the targeted Slack channel. No access to IoT Explorer is required at that point.
+The setup  requires access to a Slack account with admin privileges.
 
 # Contributors
 
@@ -40,7 +40,9 @@ Before you can emit your first message, you have to do 2 things as admin:
 
 To execute these steps you have to have admin privileges on the channel. If you don’t have those for a given channel, you can either request or simply create a new channel. The owner of a channel will have admin privileges.
 
-To get started, either use the find the "Add an app" menu item ...![image alt text](img/image_0.png)
+To get started, either use the find the "Add an app" menu item ...
+
+![image alt text](img/image_0.png)
 
 … or navigate directly to [https://api.slack.com/apps](https://api.slack.com/apps)
 
@@ -54,11 +56,11 @@ To get started, either use the find the "Add an app" menu item ...![image alt te
 
 * Copy the webhook URL (you will need that in the next step with Salesforce configuration)
 
-**2**** Salesforce**
+**2 Salesforce**
 
 The first thing to do in Salesforce is allow for outgoing traffic to [https://hooks.slack.com](https://hooks.slack.com). This is a security configuration and requires appropriate privileges on the org you are trying to configure. IoT Explorer today requires admin privileges, so chances are you already have admin rights to make this change anyways.
 
-From Setup → Security→ Remote Site Settings
+From Setup → Security → Remote Site Settings
 
 * Add the copied webhook URL (with or without the actual path) as new remote site
 
@@ -82,46 +84,37 @@ Besides the "Slack PE Settings" there is one custom object called “Slack Messa
 
 ![image alt text](img/image_8.png)
 
-To test the Slack integration we would need real IoT input events to be available. Without a connection to some device management system, however, we will have to simulate input.
+To test the Slack integration for IoT orchestrations, we would need some sort of IoT input events to be available to trigger rules and produce output actions. Without an IoT context available, however, we can simulate the output action simply by sending the Platform Event manually.
 
-For demo purposes only, we demonstrate the input through a platform event called “Slack_post_event__e”. That platform event has a couple of fields, one for a text(255) value and one used as key (a numeric id). 
+To do that we can use workbench or any other external REST client (like Postman). Below is the schema for the platform event.
 
-The platform event can simply be created using workbench or any other external REST client (like Postman). Below is the schema for the platform event.
-
-In a real-world situation we would expect complex orchestrations based on real IoT input events.
+In a real-world IoT situation, we would want orchestrations to emit the "Slack_post_event__e" for us.
 
 
 ![image alt text](img/image_9.png) 
 
-## IoT Explorer Config
+## Testing
 
-IoT orchestrations to emit Slack messages can be trivial or complex. The Slack output only concerns the output action. To create a new Slack output action, select "Salesforce Record" for output.
+Open workbench again at [https://workbench.developerforce.com/insert.php](https://workbench.developerforce.com/insert.php)
 
-![image alt text](img/image_10.png)
+* With data → Insert select the "Slack_post_event__e" event![image alt text](img/image_10.png)
 
-Create a new object of type "Slack Message"![image alt text](img/image_11.png)
+* Use any "Slack_post_ID__c" to identify the message with
 
-The only required field to the object is "Text__c". Here you can construct the message format using any values, including the Slack markdown formatting options (like ` for single-line code`, ```for multi-line code```, _for cursive text_, and *for bold text*).
+* Leave "ReplayId" blank
 
-The provided sample orchestration uses the Slack_post_event__e body to construct a Slack_Message__c instance and wrap the value with a few additional fields into "Text__c". 
+* In the "Message__c" field you can post a markdown formatted message, e.g.
 
-![image alt text](img/image_12.png)
+> Event *1234* was received by IoT Explorer with message ```Bingo bongo``` from user ID `005B0000003Y9V2IAK` at 2017-10-20 16:10:13Z
 
-The resulting Slack message will look like:
+![image alt text](img/image_11.png)
+
+Again, in an IoT orchestration this type of message would be constructed with event data and context. Here we only assume the role of an IoT orchestration and emit the platform event manually.
+
+If everything worked as expected, you will see the Slack message appear in your channel:
 
 ![image alt text](img/image_13.png)
 
 # Solution Diagram
 
-![image alt text](img/image_14.png) 
-
-# Short Video
-
-Available here: [./demo_recording_480p.mov](./demo_recording_480p.mov)
-
-# Submission
-
-## Email
-
-hkache@salesforce.com
-
+![image alt text](img/image_14.png)

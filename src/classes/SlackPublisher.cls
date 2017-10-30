@@ -1,7 +1,7 @@
 public class SlackPublisher {
     
     @InvocableMethod(label='Post to Slack')
-    public static void postToSlack(List<Slack_Message__c> messages) {
+    public static void postToSlack(List<Slack_post_event__e> messages) {
 
         String slackURL; 
         
@@ -12,11 +12,11 @@ public class SlackPublisher {
             slackURL = config[0].webhook__c;
         }
         
-        for (Slack_Message__c message:messages) {
+        for (Slack_post_event__e message:messages) {
         
             Map<String,Object> msg = new Map<String,Object>();
         
-            msg.put('text', message.Text__c);
+            msg.put('text', message.Message__c);
             msg.put('mrkdwn', true);
         
             String body = JSON.serialize(msg);    
